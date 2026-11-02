@@ -1,0 +1,17 @@
+<resources>
+    <color name="bg_dark">#121414</color>
+    <color name="bg_pitch_black">#000000</color>
+    <color name="surface_glass">#0DFFFFFF</color>
+    <color name="surface_glass_stroke">#1FFFFFFF</color>
+    <color name="surface_bright">#1AFFFFFF</color>
+    <color name="accent_mint">#7DFFA2</color>
+    <color name="accent_mint_glow">#00E676</color>
+    <color name="accent_mint_dim">#1A7DFFA2</color>
+    <color name="alert_red">#FF1744</color>
+    <color name="alert_red_dim">#2AFF1744</color>
+    <color name="text_primary">#FFFFFF</color>
+    <color name="text_secondary">#919094</color>
+    <color name="text_muted">#66FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+</resources>
