@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.scamdetection'
+    namespace 'com.echoguard.companion'
     compileSdk 34
 
     defaultConfig {
-        applicationId 'com.example.scamdetection.lowlatency'
+        applicationId 'com.echoguard.companion'
         minSdk 26
         targetSdk 34
         versionCode 1

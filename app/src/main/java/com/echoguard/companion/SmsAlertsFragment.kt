@@ -1,4 +1,4 @@
-package com.example.scamdetection
+package com.echoguard.companion
 
 import android.app.AlertDialog
 import android.graphics.Color

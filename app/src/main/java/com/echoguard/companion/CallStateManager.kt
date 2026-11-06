@@ -1,4 +1,4 @@
-package com.example.scamdetection
+package com.echoguard.companion
 
 import android.content.Context
 import android.content.Intent

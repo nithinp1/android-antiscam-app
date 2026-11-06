@@ -1,4 +1,4 @@
-package com.example.scamdetection
+package com.echoguard.companion
 
 import android.os.Bundle
 import android.util.TypedValue

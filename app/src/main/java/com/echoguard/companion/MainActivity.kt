@@ -1,4 +1,4 @@
-package com.example.scamdetection
+package com.echoguard.companion
 
 import android.content.Intent
 import android.content.SharedPreferences
@@ -14,7 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 
 /**
- * EchoGuard - Main Host Activity
+ * Echoguard - Main Host Activity
  *
  * Hosts a ViewPager2 with 4 swipeable tabs (Dashboard, History, SMS, Vault)
  * and a shared bottom navigation bar that stays in sync with the pager.
@@ -70,7 +70,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         val titleTv = TextView(this).apply {
-            text = "EchoGuard (Low Latency)"
+            text = "Echoguard (Low Latency)"
             setTextColor(Color.parseColor(DesignTheme.Colors.ON_BACKGROUND))
             textSize = 16f
             typeface = android.graphics.Typeface.DEFAULT_BOLD

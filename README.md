@@ -1,4 +1,4 @@
-# EcoGuard Android Client
+# Echoguard Android Client
 
 [![Android](https://img.shields.io/badge/Platform-Android%208.0%2B%20(API%2026%2B)-3DDC84.svg?style=flat&logo=android&logoColor=white)](https://developer.android.com)
 [![Kotlin](https://img.shields.io/badge/Kotlin-2.0.20-7F52FF.svg?style=flat&logo=kotlin&logoColor=white)](https://kotlinlang.org/)
@@ -7,10 +7,10 @@
 [![Min SDK](https://img.shields.io/badge/Min%20SDK-26%20(Oreo)-orange.svg)](https://developer.android.com)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-Native Android mobile security client for **EcoGuard** — an automated, real-time scam call interception and SMS smishing defense platform. The application intercepts active phone calls, captures hardware audio through a resilient fallback chain, streams low-latency PCM16 chunks over WebSockets to the AI detection backend, and displays an on-screen floating warning overlay with sub-second threat scoring.
+Native Android mobile security client for **Echoguard** — an automated, real-time scam call interception and SMS smishing defense platform. The application intercepts active phone calls, captures hardware audio through a resilient fallback chain, streams low-latency PCM16 chunks over WebSockets to the AI detection backend, and displays an on-screen floating warning overlay with sub-second threat scoring.
 
 > 🖥️ **Companion Backend Server:**  
-> The high-performance multi-engine detection backend (FastAPI, Whisper STT, Sarvam AI, Ollama LLM, XGBoost, and Rule Engine) is hosted in: **[Ecoguard-server](https://github.com/nithinp1/Ecoguard-server)**.
+> The high-performance multi-engine detection backend (FastAPI, Whisper STT, Sarvam AI, Ollama LLM, XGBoost, and Rule Engine) is hosted in: **[Echoguard Server](https://github.com/nithinp1/Ecoguard-server)**.
 
 ---
 
@@ -71,7 +71,7 @@ Native Android mobile security client for **EcoGuard** — an automated, real-ti
                                            │ SMS Payload   │ Streaming PCM Audio
                                            ▼               ▼
  ┌──────────────────────────────────────────────────────────────────────────────────┐
- │                                EcoGuard Server                                   │
+ │                                Echoguard Server                                   │
  │                           (FastAPI + WebSockets)                                 │
  │                                                                                  │
  │     ┌───────────────────────────────┐       ┌──────────────────────────────┐     │
@@ -89,9 +89,9 @@ Capturing bidirectional voice call audio on modern Android is heavily restricted
 
 1. **Privileged Audio Sources:**
    - `MediaRecorder.AudioSource.VOICE_CALL`, `VOICE_DOWNLINK`, and `VOICE_UPLINK` require the signature-level permission `android.permission.CAPTURE_AUDIO_OUTPUT`.
-   - On rooted devices (Magisk, LineageOS, AOSP), EcoGuard automatically executes:
+   - On rooted devices (Magisk, LineageOS, AOSP), Echoguard automatically executes:
      ```bash
-     su -c "appops set com.example.scamdetection.lowlatency CAPTURE_AUDIO_OUTPUT allow"
+     su -c "appops set com.echoguard.companion CAPTURE_AUDIO_OUTPUT allow"
      ```
      This allows direct digital capture of both sides of the phone call without speakerphone echo or background distortion.
 2. **Standard Fallback Chain:**
@@ -136,12 +136,12 @@ The application features a 4-tab swipeable interface powered by `ViewPager2`:
 - Android device running **Android 8.0 (API 26)** or higher (Root recommended for direct call capture).
 - [Android Studio Jellyfish | 2023.3.1+](https://developer.android.com/studio) or newer.
 - **JDK 17** or **JDK 21**.
-- Running instance of [EcoGuard Server](https://github.com/nithinp1/Ecoguard-server).
+- Running instance of [Echoguard Server](https://github.com/nithinp1/Ecoguard-server).
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/nithinp1/android-antiscam-app.git
-cd android-antiscam-app
+git clone https://github.com/nithinp1/Echoguard-companion-app.git
+cd Echoguard-companion-app
 ```
 
 ### 2. Build the Debug APK
@@ -170,7 +170,7 @@ adb install app/build/outputs/apk/debug/app-debug.apk
 2. **Root Grant (Optional):** If prompted by Magisk, tap **Grant** to enable direct hardware call audio capture.
 3. **Configure Server IP:**
    - On the **Dashboard**, tap **Server IP**.
-   - Enter your EcoGuard server WebSocket URL (e.g., `ws://192.168.1.100:8000/audio-stream` or your Tailscale / LAN IP).
+   - Enter your Echoguard server WebSocket URL (e.g., `ws://192.168.1.100:8000/audio-stream` or your Tailscale / LAN IP).
 4. **Set Packet Duration:**
    - Tap **Package Time** and select your desired streaming chunk duration (recommended: `100ms` or `200ms` for streaming STT; `1s` for Whisper batch mode).
 5. **Start Monitoring:** Toggle **Call Monitoring Active**.
@@ -222,7 +222,7 @@ adb install app/build/outputs/apk/debug/app-debug.apk
 │   ├── build.gradle                            # Application build configuration & dependencies
 │   └── src/main/
 │       ├── AndroidManifest.xml                 # App permissions, activities, services, receivers
-│       ├── java/com/example/scamdetection/
+│       ├── java/com/echoguard/companion/
 │       │   ├── MainActivity.kt                 # Host activity, theme manager & ViewPager2 navigation
 │       │   ├── DashboardFragment.kt            # Threat gauge, server config & packet duration controls
 │       │   ├── ScamDetectionService.kt         # Audio capture worker, WebSocket streaming & alerts
@@ -256,7 +256,7 @@ adb install app/build/outputs/apk/debug/app-debug.apk
 
 ## 🔗 Related Repositories
 
-- **Backend Detection Server:** [nithinp1/Ecoguard-server](https://github.com/nithinp1/Ecoguard-server) — Multi-engine streaming backend powering STT transcription, LLM reasoning, and real-time fraud classification.
+- **Backend Detection Server:** [Echoguard Server](https://github.com/nithinp1/Ecoguard-server) — Multi-engine streaming backend powering STT transcription, LLM reasoning, and real-time fraud classification.
 
 ---
 

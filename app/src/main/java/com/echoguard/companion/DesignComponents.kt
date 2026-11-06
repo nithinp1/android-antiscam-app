@@ -1,4 +1,4 @@
-package com.example.scamdetection
+package com.echoguard.companion
 
 import android.content.Context
 import android.graphics.Color
@@ -18,7 +18,7 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 
 /**
- * Reusable UI Components for EchoGuard Design System
+ * Reusable UI Components for Echoguard Design System
  * All components follow Material Design 3 guidelines with Obsidian Shield theme
  */
 class DesignComponents(val context: Context) {

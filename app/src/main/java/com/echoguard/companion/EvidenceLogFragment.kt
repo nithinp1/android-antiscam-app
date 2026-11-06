@@ -1,54 +1,39 @@
-package com.example.scamdetection
+package com.echoguard.companion
 
-import android.app.Activity
-import android.content.Context
-import android.content.Intent
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.LinearLayout
+import android.widget.ScrollView
 import android.widget.TextView
 import androidx.core.content.FileProvider
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import org.json.JSONObject
 
-/** Lists evidence recordings with metadata; play, share (file + hash). */
-class EvidenceLogActivity : AppCompatActivity() {
+/** Evidence log fragment - self-contained UI with persisted evidence history. */
+class EvidenceLogFragment : Fragment() {
 
     private lateinit var container: LinearLayout
-    private val components by lazy { DesignComponents(this) }
+    private lateinit var components: DesignComponents
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        components = DesignComponents(requireContext())
 
-        val root = buildEvidenceUI()
-        setContentView(root)
-        supportActionBar?.title = "Evidence Log"
-        reload()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        reload()
-    }
-
-    /** Builds the evidence UI for the activity or fragment. */
-    fun buildEvidenceUIForFragment(): View {
-        return buildEvidenceUI()
-    }
-
-    private fun buildEvidenceUI(): View {
-        val root = LinearLayout(this).apply {
+        val root = LinearLayout(requireContext()).apply {
             orientation = LinearLayout.VERTICAL
             setBackgroundColor(android.graphics.Color.parseColor(DesignTheme.Colors.BACKGROUND))
         }
 
-        val scroll = android.widget.ScrollView(this).apply {
+        val scroll = ScrollView(requireContext()).apply {
             setPadding(
                 dpi(DesignTheme.Spacing.MD),
                 dpi(DesignTheme.Spacing.MD),
@@ -57,18 +42,27 @@ class EvidenceLogActivity : AppCompatActivity() {
             )
         }
 
-        container = LinearLayout(this).apply {
+        this.container = LinearLayout(requireContext()).apply {
             orientation = LinearLayout.VERTICAL
         }
 
-        scroll.addView(container)
+        scroll.addView(this.container)
         root.addView(scroll)
+
+        // Load persisted evidence log
+        reload()
+
         return root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        reload()
     }
 
     private fun reload() {
         container.removeAllViews()
-        val entries = EvidenceRecorder.loadLog(this)
+        val entries = EvidenceRecorder.loadLog(requireContext())
         if (entries.length() == 0) {
             addEmpty("No recordings yet. Evidence is captured when risk ≥ 60 during a call.")
             return
@@ -96,7 +90,7 @@ class EvidenceLogActivity : AppCompatActivity() {
             paddingDp = DesignTheme.Spacing.MD,
             cornerRadiusDp = DesignTheme.Radius.MEDIUM
         ) { cardLayout: LinearLayout ->
-            val top = LinearLayout(this).apply { orientation = LinearLayout.HORIZONTAL }
+            val top = LinearLayout(requireContext()).apply { orientation = LinearLayout.HORIZONTAL }
             val riskTv = components.createLabel(
                 "$riskLabel: $risk",
                 "md",
@@ -131,12 +125,11 @@ class EvidenceLogActivity : AppCompatActivity() {
                 setTextIsSelectable(true)
             }
             cardLayout.addView(hashTv)
-            // Fix: hashTv is already mutable from apply, need to cast or use var
 
             // spacer
             cardLayout.addView(components.createSpacer(DesignTheme.Spacing.MD))
 
-            val btns = LinearLayout(this).apply {
+            val btns = LinearLayout(requireContext()).apply {
                 orientation = LinearLayout.HORIZONTAL
                 gravity = Gravity.END
                 layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
@@ -178,25 +171,25 @@ class EvidenceLogActivity : AppCompatActivity() {
     }
 
     private fun play(file: java.io.File) {
-        val uri = FileProvider.getUriForFile(this, "${packageName}.provider", file)
-        val intent = Intent(Intent.ACTION_VIEW).apply {
+        val uri = FileProvider.getUriForFile(requireContext(), "${requireContext().packageName}.provider", file)
+        val intent = android.content.Intent(android.content.Intent.ACTION_VIEW).apply {
             setDataAndType(uri, "audio/wav")
-            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            addFlags(android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION)
         }
         try { startActivity(intent) } catch (e: android.content.ActivityNotFoundException) {
-            android.widget.Toast.makeText(this, "No audio player found", android.widget.Toast.LENGTH_SHORT).show()
+            android.widget.Toast.makeText(requireContext(), "No audio player found", android.widget.Toast.LENGTH_SHORT).show()
         }
     }
 
     private fun share(file: java.io.File, metaJson: String) {
-        val uri = FileProvider.getUriForFile(this, "${packageName}.provider", file)
-        val intent = Intent(Intent.ACTION_SEND).apply {
+        val uri = FileProvider.getUriForFile(requireContext(), "${requireContext().packageName}.provider", file)
+        val intent = android.content.Intent(android.content.Intent.ACTION_SEND).apply {
             type = "audio/wav"
-            putExtra(Intent.EXTRA_STREAM, uri)
-            putExtra(Intent.EXTRA_TEXT, "Evidence metadata:\n$metaJson")
-            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            putExtra(android.content.Intent.EXTRA_STREAM, uri)
+            putExtra(android.content.Intent.EXTRA_TEXT, "Evidence metadata:\n$metaJson")
+            addFlags(android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION)
         }
-        startActivity(Intent.createChooser(intent, "Share evidence"))
+        startActivity(android.content.Intent.createChooser(intent, "Share evidence"))
     }
 
     private fun dp(v: Float): Float = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, v, resources.displayMetrics)

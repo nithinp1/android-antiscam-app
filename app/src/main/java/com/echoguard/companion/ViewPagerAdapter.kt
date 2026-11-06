@@ -1,4 +1,4 @@
-package com.example.scamdetection
+package com.echoguard.companion
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity

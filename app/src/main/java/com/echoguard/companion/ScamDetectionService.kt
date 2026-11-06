@@ -1,4 +1,4 @@
-package com.example.scamdetection
+package com.echoguard.companion
 
 import android.app.Notification
 import android.app.NotificationChannel
@@ -955,7 +955,7 @@ class ScamDetectionService : Service() {
         try {
             val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             val notification = Notification.Builder(this, CHANNEL_ID)
-                .setContentTitle("Scam Detection")
+                .setContentTitle("Echoguard")
                 .setContentText(text)
                 .setSmallIcon(android.R.drawable.ic_media_play)
                 .setOngoing(true)
@@ -966,10 +966,10 @@ class ScamDetectionService : Service() {
 
     private fun buildNotification(): Notification {
         getSystemService(NotificationManager::class.java).createNotificationChannel(
-            NotificationChannel(CHANNEL_ID, "Scam Detection", NotificationManager.IMPORTANCE_LOW)
+            NotificationChannel(CHANNEL_ID, "Echoguard", NotificationManager.IMPORTANCE_LOW)
         )
         return Notification.Builder(this, CHANNEL_ID)
-            .setContentTitle("Scam Detection")
+            .setContentTitle("Echoguard")
             .setContentText("Monitoring active")
             .setSmallIcon(android.R.drawable.ic_media_play)
             .setOngoing(true)

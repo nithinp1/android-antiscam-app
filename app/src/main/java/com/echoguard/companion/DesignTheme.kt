@@ -1,9 +1,9 @@
-package com.example.scamdetection
+package com.echoguard.companion
 
 import android.graphics.Color
 
 /**
- * EchoGuard Design Theme - Obsidian Shield
+ * Echoguard Design Theme - Obsidian Shield
  * Extracted from Stitch MCP server
  * Dark mode, accessible, with strong secondary (green) and tertiary (red) alerts
  */

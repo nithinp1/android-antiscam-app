@@ -15,8 +15,8 @@
     <application
         android:allowBackup="false"
         android:icon="@android:drawable/sym_def_app_icon"
-        android:label="EchoGuard Low Latency"
-        android:theme="@style/Theme.ScamDetection"
+        android:label="Echoguard Low Latency"
+        android:theme="@style/Theme.Echoguard"
         android:usesCleartextTraffic="true">
 
         <activity

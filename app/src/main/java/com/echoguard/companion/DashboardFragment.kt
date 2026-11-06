@@ -1,4 +1,4 @@
-package com.example.scamdetection
+package com.echoguard.companion
 
 import android.content.Intent
 import android.graphics.Color
@@ -23,7 +23,7 @@ import android.widget.Switch
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
-import com.example.scamdetection.R
+import com.echoguard.companion.R
 
 /** Dashboard fragment - contains the main monitoring UI. */
 class DashboardFragment : Fragment() {
